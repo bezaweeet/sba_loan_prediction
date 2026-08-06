@@ -47,7 +47,7 @@ hyperparameters (100 trees, max depth 20, and others) were chosen using a random
 
 ## How to Run This
 
-1. Open the sba_notebook in `notebooks/` 
+1. 1. Open `notebooks/sba_notebook.ipynb` 
 2. Download the dataset from the Kaggle, link above.
 3. Update the file path in the notebook to point to where you saved
    the dataset.
