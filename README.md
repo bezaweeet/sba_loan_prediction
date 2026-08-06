@@ -13,7 +13,7 @@ It contains loan records approved under the SBA's 7(a) loan program. After clean
 - **Charged Off** (the loan defaulted)
 
 About **8% of loans in this dataset defaulted**, and 92% were paid back in full.
-
+![Loan Distribution](images/loan_distribution.png)
 ## What the Project Does
 
 The work is split into a few main steps:
@@ -24,6 +24,8 @@ The work is split into a few main steps:
 4. **Build and compare models**: train a naive baseline, a Logistic Regression model, and a Random Forest model, then tune the Random Forest's settings using a hyperparameter search rather than guessing.
 5. **Evaluate the models**: since only 8% of loans default, plain accuracy is misleading. This project uses F1 Score and PR-AUC instead, which are better suited for spotting a rare outcome.
 
+![Correlation Heatmap](images/correlation_heatmap.png)
+
 ## What was Found
 
 A few things stood out during the exploration:
@@ -33,6 +35,9 @@ A few things stood out during the exploration:
 - **Business type matters.** Individual borrowers default more often (9.1%) than corporations (8.0%) or partnerships (4.7%).
 - **Smaller loans are riskier.** Loans that defaulted were smaller on average ($204,527) than loans that were paid back ($340,227).
 - **The economy matters.** Default rates were highest in 2018 (10.65%) and lowest in 2013 (6.51%), which lines up with broader economic trends.
+
+![Default Rate by Industry](images/defaultrate_industry.png)
+![Default Rate by State](images/defaultrate_state.png)
 
 ## Model Results
 
