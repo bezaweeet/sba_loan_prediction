@@ -2,19 +2,19 @@ import streamlit as st
 import pandas as pd
 import joblib
 import json
+import os
 
 st.set_page_config(page_title="SBA Loan Default Predictor", page_icon="💰", layout="centered")
 
-# -----------------------------------------------------------------
-# Load the trained model and the dropdown option lists
-# -----------------------------------------------------------------
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
 @st.cache_resource
 def load_model():
-    return joblib.load("rf_model.joblib")
+    return joblib.load(os.path.join(BASE_DIR, "rf_model.joblib"))
 
 @st.cache_data
 def load_dropdown_options():
-    with open("dropdown_options.json") as f:
+    with open(os.path.join(BASE_DIR, "dropdown_options.json")) as f:
         return json.load(f)
 
 model = load_model()
@@ -28,9 +28,6 @@ st.write(
 
 st.divider()
 
-# -----------------------------------------------------------------
-# Input form
-# -----------------------------------------------------------------
 st.subheader("Loan Details")
 
 col1, col2 = st.columns(2)
@@ -68,9 +65,6 @@ with col2:
 
 st.divider()
 
-# -----------------------------------------------------------------
-# Predict
-# -----------------------------------------------------------------
 if st.button("Predict Default Risk", type="primary", use_container_width=True):
     input_df = pd.DataFrame([{
         "BorrState": borr_state,
