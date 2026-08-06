@@ -20,18 +20,16 @@ def load_dropdown_options():
 model = load_model()
 options = load_dropdown_options()
 
-st.title("💰 SBA Loan Default Risk Predictor")
+st.title("SBA Loan Default Risk Predictor")
 st.write(
     "Estimate the probability that a small business loan will default, "
     "based on a Random Forest model trained on SBA 7(a) loan data."
 )
 
 st.divider()
-
 st.subheader("Loan Details")
 
 col1, col2 = st.columns(2)
-
 with col1:
     borr_state = st.selectbox("Borrower State", options["BorrState"])
     project_state = st.selectbox("Project State", options["ProjectState"])
@@ -39,7 +37,6 @@ with col1:
     naics_code = st.selectbox("Industry (2-digit NAICS sector)", options["NaicsCode"])
     delivery_method = st.selectbox("Delivery Method", options["DeliveryMethod"])
     subpgmdesc = st.selectbox("Sub-Program", options["subpgmdesc"])
-
 with col2:
     gross_approval = st.number_input(
         "Loan Amount Approved ($)", min_value=1000, max_value=5_000_000,
@@ -85,23 +82,11 @@ if st.button("Predict Default Risk", type="primary", use_container_width=True):
     prediction = model.predict(input_df)[0]
 
     st.subheader("Result")
-
     risk_pct = proba * 100
+
     if prediction == 1:
-        st.error(f"⚠️ Predicted: **Higher Default Risk** ({risk_pct:.1f}% estimated probability)")
+        st.error(f"Predicted: **Higher Default Risk** ({risk_pct:.1f}% estimated probability)")
     else:
-        st.success(f"✅ Predicted: **Lower Default Risk** ({risk_pct:.1f}% estimated probability)")
+        st.success(f"Predicted: **Lower Default Risk** ({risk_pct:.1f}% estimated probability)")
 
     st.progress(min(proba, 1.0))
-    st.caption(
-        "This is a probability estimate from a statistical model, not a "
-        "guarantee or an official credit decision. It is intended for "
-        "educational and demonstration purposes only."
-    )
-
-st.divider()
-st.caption(
-    "Model: Random Forest (tuned via RandomizedSearchCV) | "
-    "Trained on 347,135 SBA 7(a) loan records | "
-    "F1 = 0.5012, PR-AUC = 0.5672 on held-out test data"
-)
